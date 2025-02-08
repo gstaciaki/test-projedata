@@ -1,0 +1,11 @@
+services:
+  app:
+    image: test-projedata-image
+    container_name: test-projedata-app
+    build: .
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "8080:8080"
+    command: ["tail", "-f", "/dev/null"]

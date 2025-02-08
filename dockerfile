@@ -1,18 +1,11 @@
-# Usando a imagem base do Maven com OpenJDK 17
-FROM maven
+FROM maven:3.9-eclipse-temurin-17
 
-# Define o diretório de trabalho
 WORKDIR /app
 
-# Copia o arquivo pom.xml e baixa as dependências
+# Copiar o pom.xml e dependências antes para caching de dependências
 COPY pom.xml .
 RUN mvn dependency:go-offline -B
 
-# Copia o código-fonte
+# Copiar o código fonte e rodar o build
 COPY src /app/src
-
-# Compila o projeto e empacota o JAR
 RUN mvn package -DskipTests
-
-# Comando para executar a aplicação
-CMD ["java", "-jar", "target/test-projedata-1.0-SNAPSHOT.jar"]
